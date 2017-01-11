@@ -27,19 +27,19 @@ class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegat
         filteredData = data
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let cell = tableView.dequeueReusableCellWithIdentifier("Cell")!
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")!
         cell.textLabel?.text = filteredData[indexPath.row]
         return cell
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return filteredData.count
     }
     
     // This method updates filteredData based on the text in the Search Box
-    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // When there is no text, filteredData is the same as the original data
        
         if searchText.isEmpty {
@@ -51,7 +51,7 @@ class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegat
             // item should NOT be included
             filteredData = data.filter({(dataItem: String) -> Bool in
                 // If dataItem matches the searchText, return true to include it
-                if dataItem.rangeOfString(searchText, options: .CaseInsensitiveSearch) != nil {
+                if dataItem.range(of: searchText, options: .caseInsensitive) != nil {
                     return true
                 } else {
                     return false
@@ -61,12 +61,12 @@ class ViewController: UIViewController, UITableViewDataSource,UITableViewDelegat
         tblView.reloadData()
     }
     
-    func searchBarTextDidEndEditing(searchBar: UISearchBar) {
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         
         searchBar.showsCancelButton = true
     }
     
-    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         
         searchBar.showsCancelButton = false
         searchBar.text = ""
